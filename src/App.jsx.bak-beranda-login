@@ -1,0 +1,253 @@
+import { useEffect, useState } from 'react';
+import {
+  ArrowRight,
+  ChevronRight,
+  Gamepad2,
+  MonitorCheck,
+  ShieldCheck,
+  Trophy,
+  UsersRound,
+  Smartphone,
+  TrendingUp,
+  Award,
+} from 'lucide-react';
+import logo from './assets/logo.png';
+import mlbb from './assets/mlbb.png';
+import pubg from './assets/pubg.png';
+
+const games = [
+  { code: 'MLBB', name: 'Mobile Legends: Bang Bang', meta: 'Divisi MOBA • 240 Anggota', image: mlbb },
+  { code: 'PUBG', name: 'PUBG Mobile', meta: 'Divisi Battle Royale • 120 Anggota', image: pubg },
+  { code: 'VLRN', name: 'Valorant', meta: 'Divisi Tactical FPS • 135 Anggota', initials: 'V' },
+  { code: 'EFB', name: 'eFootball', meta: 'Divisi Sports Sim • 85 Anggota', initials: 'eF' },
+];
+
+
+function MobileHome() {
+  const mobileGames = [
+    { code: 'MOBILE LEGENDS', className: 'mobile-game-banner--mlbb', mark: 'MOBILE LEGENDS' },
+    { code: 'PUBG MOBILE', className: 'mobile-game-banner--pubg', mark: 'PUBG MOBILE' },
+    { code: 'VALORANT', className: 'mobile-game-banner--valorant', mark: 'VALORANT' },
+    { code: 'E-FOOTBALL', className: 'mobile-game-banner--efootball', mark: 'eFOOTBALL' },
+  ];
+
+  return (
+    <main className="mobile-home">
+      <header className="mobile-header">
+        <a className="mobile-brand" href="#m-home">
+          <img src={logo} alt="" />
+          <div><strong>TEL-U<br />ESPORTS</strong><span>PURWOKERTO</span></div>
+        </a>
+        <div className="mobile-header-actions">
+          <button type="button" className="mobile-login">Masuk</button>
+          <button type="button" className="mobile-register">Daftar</button>
+        </div>
+      </header>
+
+      <section className="mobile-hero" id="m-home">
+        <span className="mobile-season"><i /> NEW SEASON REGISTRATION OPEN</span>
+        <h1>Bergabunglah<br />dengan Komunitas<br /><em>E-Sport</em> Telkom<br />Purwokerto</h1>
+        <p>Pendaftaran digital cepat dan mudah. Tunjukkan skill terbaikmu dan jadilah bagian dari komunitas esports Telkom University Purwokerto.</p>
+        <button type="button" className="mobile-primary">DAFTAR SEKARANG</button>
+      </section>
+
+      <section className="mobile-stats">
+        <article><strong>1.200+</strong><span>MAHASISWA</span></article>
+        <article><strong>4</strong><span>DIVISI GAME</span></article>
+        <article><strong>12+</strong><span>JUARA<br />NASIONAL</span></article>
+      </section>
+
+      <section className="mobile-why">
+        <h2>KENAPA DAFTAR DI SINI?</h2><i className="mobile-title-line" />
+        <div className="mobile-benefits">
+          <article>
+            <div className="mobile-benefit-icon mobile-benefit-icon--red"><Smartphone size={13} /></div>
+            <h3>Pendaftaran 100% Online</h3>
+            <p>Tak perlu repot cetak berkas. Semua proses dari pengisian formulir, data akun game, hingga upload berkas KTM dilakukan langsung melalui platform UKM.</p>
+          </article>
+          <article>
+            <div className="mobile-benefit-icon mobile-benefit-icon--cyan"><TrendingUp size={13} /></div>
+            <h3>Pantau Status Real-time</h3>
+            <p>Dapatkan notifikasi transparan ke akun kamu setiap ada pembaruan status seleksi, jadwal aktivitas baru, dan jadwal scrim internal divisi.</p>
+          </article>
+          <article>
+            <div className="mobile-benefit-icon mobile-benefit-icon--gold"><Award size={13} /></div>
+            <h3>Sertifikat & Rekomendasi Kampus</h3>
+            <p>Dukungan resmi delegasi kampus untuk turnamen IESPA, LIMA Esports, poin SKK/TAK kemahasiswaan, serta fasilitas coaching clinic berstandar pro.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="mobile-arena" id="m-game">
+        <h2>PILIH ARENA KAMU</h2>
+        <p>Eksplorasi kategori game resmi UKM dan temukan posisi terbaik sesuai peran dan spesialisasi bermainmu.</p>
+        <div className="mobile-game-list">
+          {mobileGames.map((game) => (
+            <article className="mobile-game-card" key={game.code}>
+              <div className={`mobile-game-banner ${game.className}`}><strong>{game.mark}</strong></div>
+              <div className="mobile-game-body">
+                <div className="mobile-game-name"><span className="mobile-game-dot" />{game.code}</div>
+                <button type="button">JOIN SQUAD <ChevronRight size={11} /></button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mobile-events" id="m-event">
+        {[1, 2, 3].map((item) => (
+          <article className="mobile-event-card" key={item}>
+            <div className="mobile-event-top"><span>COMMUNITY EVENT</span><time>Maret 2025</time></div>
+            <h3>PIALA REKTOR ESPORTS CHAMPIONSHIP 2025</h3>
+            <p>Total Prize Pool Rp 15.000.000 + Sertifikat Prestasi Rektorat. Terbuka untuk seluruh fakultas!</p>
+            <div className="mobile-event-bottom"><strong>Slot Terbatas: 32 Tim</strong><a href="#m-event">Lihat Jadwal & Regulasi <ChevronRight size={10} /></a></div>
+          </article>
+        ))}
+      </section>
+
+      <footer className="mobile-footer">
+        <div className="mobile-footer-brand"><img src={logo} alt="" /><strong>TELKOM ESPORTS</strong></div>
+        <p>Unit Kegiatan Mahasiswa E-Sport Telkom University Purwokerto. Mewadahi minat dan bakat mahasiswa di dunia industri gaming dan e-sport kompetitif kampus.</p>
+        <div className="mobile-socials"><span>DC</span><span>IG</span><span>YT</span></div>
+        <div className="mobile-footer-links">
+          <div><strong>MENU</strong><a href="#m-home">Beranda</a><a href="#m-home">Tentang Kami</a><a href="#m-game">Kategori Game</a><a href="#m-event">Event</a></div>
+          <div><strong>RESOURCES</strong><a href="#m-home">Cara Daftar</a><a href="#m-home">Peraturan UKM</a><a href="#m-home">FAQ Seleksi</a><a href="#m-home">Privacy Policy</a></div>
+        </div>
+        <small>© 2025 Telkom University Purwokerto Esports. All rights reserved.</small>
+      </footer>
+    </main>
+  );
+}
+
+export default function App() {
+  const [activeSection, setActiveSection] = useState(() => window.location.hash?.replace('#', '') || 'beranda');
+
+  useEffect(() => {
+    const syncHash = () => setActiveSection(window.location.hash?.replace('#', '') || 'beranda');
+    window.addEventListener('hashchange', syncHash);
+    return () => window.removeEventListener('hashchange', syncHash);
+  }, []);
+
+  const desktopGames = [
+    { code: 'MOBILE LEGENDS', className: 'desktop-game-banner--mlbb', mark: 'MOBILE LEGENDS' },
+    { code: 'PUBG MOBILE', className: 'desktop-game-banner--pubg', mark: 'PUBG MOBILE' },
+    { code: 'VALORANT', className: 'desktop-game-banner--valorant', mark: 'VALORANT' },
+    { code: 'E-FOOTBALL', className: 'desktop-game-banner--efootball', mark: 'eFOOTBALL' },
+  ];
+
+  return (
+    <>
+      <MobileHome />
+      <main className="site-shell desktop-site-shell">
+        <header className="topbar">
+          <a className="brand" href="#beranda" aria-label="Tel-U Esports Purwokerto">
+            <img src={logo} alt="" />
+            <div>
+              <strong>TEL-U ESPORTS</strong>
+              <span>PURWOKERTO</span>
+            </div>
+          </a>
+
+          <nav className="main-nav" aria-label="Navigasi utama">
+            <a className={activeSection === 'beranda' ? 'is-active' : ''} href="#beranda">Beranda</a>
+            <a className={activeSection === 'tentang' ? 'is-active' : ''} href="#tentang">Tentang Kami</a>
+            <a className={activeSection === 'game' ? 'is-active' : ''} href="#game">Kategori Game</a>
+            <a className={activeSection === 'event' ? 'is-active' : ''} href="#event">Event</a>
+          </nav>
+
+          <div className="top-actions">
+            <button className="button button--ghost" type="button">Masuk</button>
+            <button className="button button--primary" type="button">Daftar</button>
+          </div>
+        </header>
+
+        <section className="hero desktop-reference-hero" id="beranda">
+          <div className="hero__glow hero__glow--one" />
+          <div className="hero__grid" />
+          <div className="hero__content">
+            <span className="eyebrow"><i /> NEW SEASON REGISTRATION OPEN</span>
+            <h1>Bergabunglah dengan Komunitas <em>E-Sport</em> Telkom Purwokerto</h1>
+            <p>Pendaftaran digital cepat dan mudah. Tunjukkan skill terbaikmu dan jadilah bagian dari komunitas esports Telkom University Purwokerto.</p>
+            <div className="hero__actions">
+              <button className="button button--primary button--large" type="button">DAFTAR SEKARANG</button>
+            </div>
+          </div>
+        </section>
+
+        <section className="stats" aria-label="Statistik komunitas">
+          <article><strong>1.200+</strong><span>MAHASISWA</span></article>
+          <article><strong>4</strong><span>DIVISI GAME</span></article>
+          <article><strong>12+</strong><span>JUARA NASIONAL</span></article>
+        </section>
+
+        <section className="section advantages desktop-reference-why" id="tentang">
+          <div className="section-heading section-heading--center">
+            <h2>KENAPA DAFTAR DI SINI?</h2>
+            <i className="desktop-title-line" />
+          </div>
+          <div className="advantage-grid">
+            <article>
+              <div className="feature-icon"><Smartphone size={27} /></div>
+              <h3>Pendaftaran 100% Online</h3>
+              <p>Tak perlu repot cetak berkas. Semua proses dari pengisian formulir, data akun game, hingga upload berkas KTM dilakukan langsung melalui platform UKM.</p>
+            </article>
+            <article>
+              <div className="feature-icon feature-icon--cyan"><TrendingUp size={27} /></div>
+              <h3>Pantau Status Real-time</h3>
+              <p>Dapatkan notifikasi transparan ke akun kamu setiap ada pembaruan status seleksi, jadwal aktivitas baru, dan jadwal scrim internal divisi.</p>
+            </article>
+            <article>
+              <div className="feature-icon feature-icon--gold"><Award size={27} /></div>
+              <h3>Sertifikat & Rekomendasi Kampus</h3>
+              <p>Dukungan resmi delegasi kampus untuk turnamen IESPA, LIMA Esports, poin SKK/TAK kemahasiswaan, serta fasilitas coaching clinic berstandar pro.</p>
+            </article>
+          </div>
+        </section>
+
+        <section className="section games-section desktop-reference-games" id="game">
+          <div className="section-heading">
+            <h2>PILIH ARENA KAMU</h2>
+            <p>Eksplorasi kategori game resmi UKM dan temukan posisi terbaik sesuai peran dan spesialisasi bermainmu.</p>
+          </div>
+          <div className="desktop-game-grid">
+            {desktopGames.map((game) => (
+              <article className="desktop-game-card" key={game.code}>
+                <div className={`desktop-game-banner ${game.className}`}><strong>{game.mark}</strong></div>
+                <div className="desktop-game-body">
+                  <div className="desktop-game-name"><span className="desktop-game-dot" />{game.code}</div>
+                  <button type="button">JOIN SQUAD <ChevronRight size={14} /></button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section desktop-event-list" id="event">
+          {[1, 2, 3].map((item) => (
+            <article className="desktop-event-card" key={item}>
+              <div className="desktop-event-top"><span>COMMUNITY EVENT</span><time>Maret 2025</time></div>
+              <h3>PIALA REKTOR ESPORTS CHAMPIONSHIP 2025</h3>
+              <p>Total Prize Pool Rp 15.000.000 + Sertifikat Prestasi Rektorat. Terbuka untuk seluruh fakultas!</p>
+              <div className="desktop-event-bottom"><strong>Slot Terbatas: 32 Tim</strong><a href="#event">Lihat Jadwal & Regulasi <ChevronRight size={13} /></a></div>
+            </article>
+          ))}
+        </section>
+
+        <footer className="desktop-reference-footer">
+          <div className="desktop-footer-main">
+            <div>
+              <div className="desktop-footer-brand"><img src={logo} alt="" /><strong>TELKOM ESPORTS</strong></div>
+              <p>Unit Kegiatan Mahasiswa E-Sport Telkom University Purwokerto. Mewadahi minat dan bakat mahasiswa di dunia industri gaming dan e-sport kompetitif kampus.</p>
+              <div className="desktop-socials"><span>DC</span><span>IG</span><span>YT</span></div>
+            </div>
+            <div className="desktop-footer-links">
+              <div><strong>MENU</strong><a href="#beranda">Beranda</a><a href="#tentang">Tentang Kami</a><a href="#game">Kategori Game</a><a href="#event">Event</a></div>
+              <div><strong>RESOURCES</strong><a href="#beranda">Cara Daftar</a><a href="#beranda">Peraturan UKM</a><a href="#beranda">FAQ Seleksi</a><a href="#beranda">Privacy Policy</a></div>
+            </div>
+          </div>
+          <small>© 2025 Telkom University Purwokerto Esports. All rights reserved.</small>
+        </footer>
+      </main>
+    </>
+  );
+}

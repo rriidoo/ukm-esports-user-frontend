@@ -1,0 +1,369 @@
+import { useEffect, useState } from 'react';
+import {
+  ArrowRight,
+  ChevronRight,
+  Gamepad2,
+  MonitorCheck,
+  ShieldCheck,
+  Trophy,
+  UsersRound,
+  Smartphone,
+  TrendingUp,
+  Award,
+  ChevronLeft,
+  Eye,
+  EyeOff,
+  LockKeyhole,
+  UserRound,
+} from 'lucide-react';
+import logo from './assets/logo.png';
+import mlbb from './assets/mlbb.png';
+import pubg from './assets/pubg.png';
+import userIcon from './assets/user-icons/user.png';
+import documentIcon from './assets/user-icons/document.png';
+import realtimeIcon from './assets/user-icons/realtime.png';
+import trophyIcon from './assets/user-icons/trophy.png';
+import gameMlbbIcon from './assets/user-icons/game-icons/mlbb.png';
+import gamePubgIcon from './assets/user-icons/game-icons/pubg.png';
+import gameValorantIcon from './assets/user-icons/game-icons/valorant.png';
+import gameEfootballIcon from './assets/user-icons/game-icons/efootball.png';
+import instagramIcon from './assets/user-icons/social/instagram.png';
+import discordIcon from './assets/user-icons/social/discord.png';
+import youtubeIcon from './assets/user-icons/social/youtube.png';
+
+const games = [
+  { code: 'MLBB', name: 'Mobile Legends: Bang Bang', meta: 'Divisi MOBA • 240 Anggota', image: mlbb },
+  { code: 'PUBG', name: 'PUBG Mobile', meta: 'Divisi Battle Royale • 120 Anggota', image: pubg },
+  { code: 'VLRN', name: 'Valorant', meta: 'Divisi Tactical FPS • 135 Anggota', initials: 'V' },
+  { code: 'EFB', name: 'eFootball', meta: 'Divisi Sports Sim • 85 Anggota', initials: 'eF' },
+];
+
+
+function MobileHome({ loggedIn = false, navHref }) {
+  const mobileGames = [
+    { code: 'MOBILE LEGENDS', className: 'mobile-game-banner--mlbb', mark: 'MOBILE LEGENDS', icon: gameMlbbIcon },
+    { code: 'PUBG MOBILE', className: 'mobile-game-banner--pubg', mark: 'PUBG MOBILE', icon: gamePubgIcon },
+    { code: 'VALORANT', className: 'mobile-game-banner--valorant', mark: 'VALORANT', icon: gameValorantIcon },
+    { code: 'E-FOOTBALL', className: 'mobile-game-banner--efootball', mark: 'eFOOTBALL', icon: gameEfootballIcon },
+  ];
+
+  return (
+    <main className="mobile-home">
+      <header className="mobile-header">
+        <a className="mobile-brand" href={navHref('beranda')}>
+          <img src={logo} alt="" />
+          <div><strong>TEL-U<br />ESPORTS</strong><span>PURWOKERTO</span></div>
+        </a>
+        {loggedIn ? (
+          <button type="button" className="mobile-account-button" aria-label="Akun pengguna"><img src={userIcon} alt="" /></button>
+        ) : (
+          <div className="mobile-header-actions">
+            <button type="button" className="mobile-login" onClick={() => { window.location.hash = 'login'; }}>Masuk</button>
+            <button type="button" className="mobile-register" onClick={() => { window.location.hash = 'login'; }}>Daftar</button>
+          </div>
+        )}
+      </header>
+
+      <section className="mobile-hero" id="m-home">
+        <span className="mobile-season"><i /> NEW SEASON REGISTRATION OPEN</span>
+        <h1>Bergabunglah<br />dengan Komunitas<br /><em>E-Sport</em> Telkom<br />Purwokerto</h1>
+        <p>Pendaftaran digital cepat dan mudah. Tunjukkan skill terbaikmu dan jadilah bagian dari komunitas esports Telkom University Purwokerto.</p>
+        <button type="button" className="mobile-primary" onClick={() => { if (!loggedIn) window.location.hash = 'login'; }}>{loggedIn ? 'JOIN KOMUNITAS' : 'DAFTAR SEKARANG'}</button>
+      </section>
+
+      <section className="mobile-stats">
+        <article><strong>1.200+</strong><span>MAHASISWA</span></article>
+        <article><strong>4</strong><span>DIVISI GAME</span></article>
+        <article><strong>12+</strong><span>JUARA<br />NASIONAL</span></article>
+      </section>
+
+      <section className="mobile-why" id="m-tentang">
+        <h2>KENAPA DAFTAR DI SINI?</h2><i className="mobile-title-line" />
+        <div className="mobile-benefits">
+          <article>
+            <div className="mobile-benefit-icon mobile-benefit-icon--red"><img src={documentIcon} alt="" /></div>
+            <h3>Pendaftaran 100% Online</h3>
+            <p>Tak perlu repot cetak berkas. Semua proses dari pengisian formulir, data akun game, hingga upload berkas KTM dilakukan langsung melalui platform UKM.</p>
+          </article>
+          <article>
+            <div className="mobile-benefit-icon mobile-benefit-icon--cyan"><img src={realtimeIcon} alt="" /></div>
+            <h3>Pantau Status Real-time</h3>
+            <p>Dapatkan notifikasi transparan ke akun kamu setiap ada pembaruan status seleksi, jadwal aktivitas baru, dan jadwal scrim internal divisi.</p>
+          </article>
+          <article>
+            <div className="mobile-benefit-icon mobile-benefit-icon--gold"><img src={trophyIcon} alt="" /></div>
+            <h3>Sertifikat & Rekomendasi Kampus</h3>
+            <p>Dukungan resmi delegasi kampus untuk turnamen IESPA, LIMA Esports, poin SKK/TAK kemahasiswaan, serta fasilitas coaching clinic berstandar pro.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="mobile-arena" id="m-game">
+        <h2>PILIH ARENA KAMU</h2>
+        <p>Eksplorasi kategori game resmi UKM dan temukan posisi terbaik sesuai peran dan spesialisasi bermainmu.</p>
+        <div className="mobile-game-list">
+          {mobileGames.map((game) => (
+            <article className="mobile-game-card" key={game.code}>
+              <div className={`mobile-game-banner ${game.className}`}><strong>{game.mark}</strong></div>
+              <div className="mobile-game-body">
+                <div className="mobile-game-name"><span className="mobile-game-dot"><img src={game.icon} alt="" /></span>{game.code}</div>
+                <button type="button" onClick={() => { if (!loggedIn) window.location.hash = 'login'; }}>JOIN SQUAD <ChevronRight size={11} /></button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mobile-events" id="m-event">
+        {[1, 2, 3].map((item) => (
+          <article className="mobile-event-card" key={item}>
+            <div className="mobile-event-top"><span>COMMUNITY EVENT</span><time>Maret 2025</time></div>
+            <h3>PIALA REKTOR ESPORTS CHAMPIONSHIP 2025</h3>
+            <p>Total Prize Pool Rp 15.000.000 + Sertifikat Prestasi Rektorat. Terbuka untuk seluruh fakultas!</p>
+            <div className="mobile-event-bottom"><strong>Slot Terbatas: 32 Tim</strong><a href="#m-event">Lihat Jadwal & Regulasi <ChevronRight size={10} /></a></div>
+          </article>
+        ))}
+      </section>
+
+      <footer className="mobile-footer">
+        <div className="mobile-footer-brand"><img src={logo} alt="" /><strong>TELKOM ESPORTS</strong></div>
+        <p>Unit Kegiatan Mahasiswa E-Sport Telkom University Purwokerto. Mewadahi minat dan bakat mahasiswa di dunia industri gaming dan e-sport kompetitif kampus.</p>
+        <div className="mobile-socials"><span><img src={discordIcon} alt="Discord" /></span><span><img src={instagramIcon} alt="Instagram" /></span><span><img src={youtubeIcon} alt="YouTube" /></span></div>
+        <div className="mobile-footer-links">
+          <div><strong>MENU</strong><a href={navHref('beranda')}>Beranda</a><a href={navHref('tentang')}>Tentang Kami</a><a href={navHref('game')}>Kategori Game</a><a href={navHref('event')}>Event</a></div>
+          <div><strong>RESOURCES</strong><a href="#m-home">Cara Daftar</a><a href="#m-home">Peraturan UKM</a><a href="#m-home">FAQ Seleksi</a><a href="#m-home">Privacy Policy</a></div>
+        </div>
+        <small>© {loggedIn ? '2026' : '2025'} Telkom University Purwokerto Esports. All rights reserved.</small>
+      </footer>
+    </main>
+  );
+}
+
+
+function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
+
+  return (
+    <main className="user-login-page">
+      <header className="user-login-header">
+        <a className="user-login-back" href="#beranda" aria-label="Kembali ke beranda"><ChevronLeft /></a>
+        <div className="user-login-heading">
+          <strong>UKM ESPORTS</strong>
+          <span>TEL-U PURWOKERTO</span>
+        </div>
+        <div className="user-login-logo"><img src={logo} alt="Tel-U Esports" /></div>
+      </header>
+
+      <div className="user-login-accent user-login-accent--left" />
+      <div className="user-login-accent user-login-accent--right" />
+
+      <section className="user-login-card">
+        <div className="user-login-card__topline" />
+        <div className="user-login-gamepad"><Gamepad2 /></div>
+        <h1>MASUK KE AKUN ANDA</h1>
+        <p className="user-login-subtitle">Silakan masukkan email dan kata sandi Anda.</p>
+
+        <form className="user-login-form" onSubmit={(e) => e.preventDefault()}>
+          <label className="user-login-label" htmlFor="login-email">EMAIL</label>
+          <div className="user-login-input-wrap">
+            <UserRound className="user-login-field-icon" />
+            <input id="login-email" type="email" placeholder="user@gmail.com" autoComplete="email" />
+          </div>
+
+          <div className="user-login-password-row">
+            <label className="user-login-label" htmlFor="login-password">KATA SANDI</label>
+            <a href="#lupa-sandi">LUPA KATA SANDI?</a>
+          </div>
+          <div className="user-login-input-wrap">
+            <LockKeyhole className="user-login-field-icon" />
+            <input id="login-password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" autoComplete="current-password" />
+            <button className="user-login-eye" type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}>
+              {showPassword ? <EyeOff /> : <Eye />}
+            </button>
+          </div>
+
+          <label className="user-login-remember">
+            <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
+            <span className="user-login-checkbox" />
+            <span>Ingat saya</span>
+          </label>
+
+          <button className="user-login-submit" type="submit">MASUK</button>
+        </form>
+
+        <p className="user-login-register-copy">Belum punya akun? <a href="#daftar">Daftar di sini</a></p>
+      </section>
+
+      <p className="user-login-copyright">© 2026 Telkom University Purwokerto Esports. All rights reserved.</p>
+    </main>
+  );
+}
+
+export default function App() {
+  const parseRoute = () => {
+    const raw = window.location.hash?.replace('#', '') || 'beranda';
+    if (raw === 'login') return { page: 'login-form', section: 'login' };
+    if (raw === 'beranda-login' || raw.startsWith('beranda-login/')) {
+      const section = raw.split('/')[1] || 'beranda';
+      return { page: 'login', section };
+    }
+    return { page: 'general', section: ['beranda', 'tentang', 'game', 'event'].includes(raw) ? raw : 'beranda' };
+  };
+
+  const [route, setRoute] = useState(parseRoute);
+  const loggedIn = route.page === 'login';
+  const activeSection = route.section;
+  const navHref = (section) => loggedIn
+    ? (section === 'beranda' ? '#beranda-login' : `#beranda-login/${section}`)
+    : `#${section}`;
+
+  useEffect(() => {
+    const syncHash = () => {
+      const nextRoute = parseRoute();
+      setRoute(nextRoute);
+      requestAnimationFrame(() => {
+        if (nextRoute.section === 'beranda') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const mobile = window.innerWidth <= 700;
+        const targetId = mobile
+          ? ({ tentang: 'm-tentang', game: 'm-game', event: 'm-event' }[nextRoute.section])
+          : nextRoute.section;
+        if (targetId) document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    };
+    window.addEventListener('hashchange', syncHash);
+    return () => window.removeEventListener('hashchange', syncHash);
+  }, []);
+
+  if (route.page === 'login-form') return <LoginPage />;
+
+  const desktopGames = [
+    { code: 'MOBILE LEGENDS', className: 'desktop-game-banner--mlbb', mark: 'MOBILE LEGENDS', icon: gameMlbbIcon },
+    { code: 'PUBG MOBILE', className: 'desktop-game-banner--pubg', mark: 'PUBG MOBILE', icon: gamePubgIcon },
+    { code: 'VALORANT', className: 'desktop-game-banner--valorant', mark: 'VALORANT', icon: gameValorantIcon },
+    { code: 'E-FOOTBALL', className: 'desktop-game-banner--efootball', mark: 'eFOOTBALL', icon: gameEfootballIcon },
+  ];
+
+  return (
+    <>
+      <MobileHome loggedIn={loggedIn} navHref={navHref} />
+      <main className="site-shell desktop-site-shell">
+        <header className="topbar">
+          <a className="brand" href={navHref('beranda')} aria-label="Tel-U Esports Purwokerto">
+            <img src={logo} alt="" />
+            <div>
+              <strong>TEL-U ESPORTS</strong>
+              <span>PURWOKERTO</span>
+            </div>
+          </a>
+
+          <nav className="main-nav" aria-label="Navigasi utama">
+            <a className={activeSection === 'beranda' ? 'is-active' : ''} href={navHref('beranda')}>Beranda</a>
+            <a className={activeSection === 'tentang' ? 'is-active' : ''} href={navHref('tentang')}>Tentang Kami</a>
+            <a className={activeSection === 'game' ? 'is-active' : ''} href={navHref('game')}>Kategori Game</a>
+            <a className={activeSection === 'event' ? 'is-active' : ''} href={navHref('event')}>Event</a>
+          </nav>
+
+          {loggedIn ? (
+            <button type="button" className="desktop-account-button" aria-label="Akun pengguna"><img src={userIcon} alt="" /></button>
+          ) : (
+            <div className="top-actions">
+              <button className="button button--ghost" type="button" onClick={() => { window.location.hash = 'login'; }}>Masuk</button>
+              <button className="button button--primary" type="button" onClick={() => { window.location.hash = 'login'; }}>Daftar</button>
+            </div>
+          )}
+        </header>
+
+        <section className="hero desktop-reference-hero" id="beranda">
+          <div className="hero__glow hero__glow--one" />
+          <div className="hero__grid" />
+          <div className="hero__content">
+            <span className="eyebrow"><i /> NEW SEASON REGISTRATION OPEN</span>
+            <h1>Bergabunglah dengan Komunitas <em>E-Sport</em> Telkom Purwokerto</h1>
+            <p>Pendaftaran digital cepat dan mudah. Tunjukkan skill terbaikmu dan jadilah bagian dari komunitas esports Telkom University Purwokerto.</p>
+            <div className="hero__actions">
+              <button className="button button--primary button--large" type="button" onClick={() => { if (!loggedIn) window.location.hash = 'login'; }}>{loggedIn ? 'JOIN KOMUNITAS' : 'DAFTAR SEKARANG'}</button>
+            </div>
+          </div>
+        </section>
+
+        <section className="stats" aria-label="Statistik komunitas">
+          <article><strong>1.200+</strong><span>MAHASISWA</span></article>
+          <article><strong>4</strong><span>DIVISI GAME</span></article>
+          <article><strong>12+</strong><span>JUARA NASIONAL</span></article>
+        </section>
+
+        <section className="section advantages desktop-reference-why" id="tentang">
+          <div className="section-heading section-heading--center">
+            <h2>KENAPA DAFTAR DI SINI?</h2>
+            <i className="desktop-title-line" />
+          </div>
+          <div className="advantage-grid">
+            <article>
+              <div className="feature-icon"><img src={documentIcon} alt="" /></div>
+              <h3>Pendaftaran 100% Online</h3>
+              <p>Tak perlu repot cetak berkas. Semua proses dari pengisian formulir, data akun game, hingga upload berkas KTM dilakukan langsung melalui platform UKM.</p>
+            </article>
+            <article>
+              <div className="feature-icon feature-icon--cyan"><img src={realtimeIcon} alt="" /></div>
+              <h3>Pantau Status Real-time</h3>
+              <p>Dapatkan notifikasi transparan ke akun kamu setiap ada pembaruan status seleksi, jadwal aktivitas baru, dan jadwal scrim internal divisi.</p>
+            </article>
+            <article>
+              <div className="feature-icon feature-icon--gold"><img src={trophyIcon} alt="" /></div>
+              <h3>Sertifikat & Rekomendasi Kampus</h3>
+              <p>Dukungan resmi delegasi kampus untuk turnamen IESPA, LIMA Esports, poin SKK/TAK kemahasiswaan, serta fasilitas coaching clinic berstandar pro.</p>
+            </article>
+          </div>
+        </section>
+
+        <section className="section games-section desktop-reference-games" id="game">
+          <div className="section-heading">
+            <h2>PILIH ARENA KAMU</h2>
+            <p>Eksplorasi kategori game resmi UKM dan temukan posisi terbaik sesuai peran dan spesialisasi bermainmu.</p>
+          </div>
+          <div className="desktop-game-grid">
+            {desktopGames.map((game) => (
+              <article className="desktop-game-card" key={game.code}>
+                <div className={`desktop-game-banner ${game.className}`}><strong>{game.mark}</strong></div>
+                <div className="desktop-game-body">
+                  <div className="desktop-game-name"><span className="desktop-game-dot"><img src={game.icon} alt="" /></span>{game.code}</div>
+                  <button type="button" onClick={() => { if (!loggedIn) window.location.hash = 'login'; }}>JOIN SQUAD <ChevronRight size={14} /></button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section desktop-event-list" id="event">
+          {[1, 2, 3].map((item) => (
+            <article className="desktop-event-card" key={item}>
+              <div className="desktop-event-top"><span>COMMUNITY EVENT</span><time>Maret 2025</time></div>
+              <h3>PIALA REKTOR ESPORTS CHAMPIONSHIP 2025</h3>
+              <p>Total Prize Pool Rp 15.000.000 + Sertifikat Prestasi Rektorat. Terbuka untuk seluruh fakultas!</p>
+              <div className="desktop-event-bottom"><strong>Slot Terbatas: 32 Tim</strong><a href={navHref('event')}>Lihat Jadwal & Regulasi <ChevronRight size={13} /></a></div>
+            </article>
+          ))}
+        </section>
+
+        <footer className="desktop-reference-footer">
+          <div className="desktop-footer-main">
+            <div>
+              <div className="desktop-footer-brand"><img src={logo} alt="" /><strong>TELKOM ESPORTS</strong></div>
+              <p>Unit Kegiatan Mahasiswa E-Sport Telkom University Purwokerto. Mewadahi minat dan bakat mahasiswa di dunia industri gaming dan e-sport kompetitif kampus.</p>
+              <div className="desktop-socials"><span><img src={discordIcon} alt="Discord" /></span><span><img src={instagramIcon} alt="Instagram" /></span><span><img src={youtubeIcon} alt="YouTube" /></span></div>
+            </div>
+            <div className="desktop-footer-links">
+              <div><strong>MENU</strong><a href={navHref('beranda')}>Beranda</a><a href={navHref('tentang')}>Tentang Kami</a><a href={navHref('game')}>Kategori Game</a><a href={navHref('event')}>Event</a></div>
+              <div><strong>RESOURCES</strong><a href="#beranda">Cara Daftar</a><a href="#beranda">Peraturan UKM</a><a href="#beranda">FAQ Seleksi</a><a href="#beranda">Privacy Policy</a></div>
+            </div>
+          </div>
+          <small>© {loggedIn ? '2026' : '2025'} Telkom University Purwokerto Esports. All rights reserved.</small>
+        </footer>
+      </main>
+    </>
+  );
+}

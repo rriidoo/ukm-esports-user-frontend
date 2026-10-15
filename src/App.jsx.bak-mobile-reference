@@ -1,0 +1,171 @@
+import {
+  ArrowRight,
+  ChevronRight,
+  Gamepad2,
+  MonitorCheck,
+  ShieldCheck,
+  Trophy,
+  UsersRound,
+} from 'lucide-react';
+import logo from './assets/logo.png';
+import mlbb from './assets/mlbb.png';
+import pubg from './assets/pubg.png';
+
+const games = [
+  { code: 'MLBB', name: 'Mobile Legends: Bang Bang', meta: 'Divisi MOBA • 240 Anggota', image: mlbb },
+  { code: 'PUBG', name: 'PUBG Mobile', meta: 'Divisi Battle Royale • 120 Anggota', image: pubg },
+  { code: 'VLRN', name: 'Valorant', meta: 'Divisi Tactical FPS • 135 Anggota', initials: 'V' },
+  { code: 'EFB', name: 'eFootball', meta: 'Divisi Sports Sim • 85 Anggota', initials: 'eF' },
+];
+
+export default function App() {
+  return (
+    <main className="site-shell">
+      <header className="topbar">
+        <a className="brand" href="#beranda" aria-label="UKM Esports Tel-U">
+          <img src={logo} alt="" />
+          <div>
+            <strong>UKM ESPORTS TEL-U</strong>
+            <span>TELKOM UNIVERSITY</span>
+          </div>
+        </a>
+
+        <nav className="main-nav" aria-label="Navigasi utama">
+          <a className="is-active" href="#beranda">Beranda</a>
+          <a href="#game">Game</a>
+          <a href="#event">Event</a>
+          <a href="#tentang">Tentang Kami</a>
+        </nav>
+
+        <div className="top-actions">
+          <button className="button button--ghost" type="button">Masuk</button>
+          <button className="button button--primary" type="button">Daftar Sekarang</button>
+        </div>
+      </header>
+
+      <section className="hero" id="beranda">
+        <div className="hero__glow hero__glow--one" />
+        <div className="hero__glow hero__glow--two" />
+        <div className="hero__grid" />
+
+        <div className="hero__content">
+          <span className="eyebrow"><i /> NEW SEASON REGISTRATION OPEN</span>
+          <h1>Bergabunglah dengan Komunitas <em>E-Sport</em> Telkom Purwokerto</h1>
+          <p>Pendaftaran digital cepat dan mudah. Tunjukkan skill terbaikmu dan jadilah bagian dari atlet profesional kampus.</p>
+          <div className="hero__actions">
+            <button className="button button--primary button--large" type="button">DAFTAR SEKARANG <ArrowRight size={17} /></button>
+            <a href="#game" className="hero__link">Lihat Divisi Game <ChevronRight size={16} /></a>
+          </div>
+        </div>
+
+        <div className="hero__visual" aria-hidden="true">
+          <div className="hero-card hero-card--back" />
+          <div className="hero-card hero-card--front">
+            <div className="hero-card__brand">TEL-U <span>ESPORTS</span></div>
+            <div className="hero-card__arena">
+              <span className="hero-card__beam hero-card__beam--left" />
+              <span className="hero-card__beam hero-card__beam--right" />
+              <Gamepad2 size={62} strokeWidth={1.25} />
+            </div>
+            <div className="hero-card__footer">
+              <span>PLAY • COMPETE • GROW</span>
+              <b>EST. 2024</b>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="stats" aria-label="Statistik komunitas">
+        <article><strong>1.200+</strong><span>Total Mahasiswa</span></article>
+        <article><strong>4</strong><span>Divisi Game</span></article>
+        <article><strong>12+</strong><span>Juara Nasional</span></article>
+      </section>
+
+      <section className="section advantages" id="tentang">
+        <div className="section-heading section-heading--center">
+          <span className="section-kicker">KENAPA BERGABUNG?</span>
+          <h2>Satu Komunitas, Banyak Kesempatan</h2>
+          <p>Semua proses dibuat sederhana agar kamu bisa fokus berkembang bersama komunitas esports kampus.</p>
+        </div>
+        <div className="advantage-grid">
+          <article>
+            <div className="feature-icon"><MonitorCheck size={27} /></div>
+            <h3>Pendaftaran 100% Online</h3>
+            <p>Tak perlu repot cetak berkas, semua proses digital langsung dari gawai.</p>
+          </article>
+          <article>
+            <div className="feature-icon"><ShieldCheck size={27} /></div>
+            <h3>Pantau Status Real-time</h3>
+            <p>Dapatkan pembaruan status seleksi dan verifikasi berkas secara langsung.</p>
+          </article>
+          <article>
+            <div className="feature-icon"><Trophy size={27} /></div>
+            <h3>Sertifikat & Rekomendasi</h3>
+            <p>Dukungan resmi delegasi turnamen nasional dan poin SKK / TAK universitas.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="section games-section" id="game">
+        <div className="section-heading section-heading--split">
+          <div>
+            <span className="section-kicker">DIVISI GAME</span>
+            <h2>Temukan Game Favoritmu</h2>
+          </div>
+          <a href="#game">Lihat Semua Divisi <ArrowRight size={15} /></a>
+        </div>
+        <div className="game-grid">
+          {games.map((game) => (
+            <article className="game-card" key={game.code}>
+              <div className="game-card__logo">
+                {game.image ? <img src={game.image} alt="" /> : <span>{game.initials}</span>}
+              </div>
+              <div className="game-card__copy">
+                <small>{game.code}</small>
+                <h3>{game.name}</h3>
+                <p>{game.meta}</p>
+              </div>
+              <button type="button" aria-label={`Lihat ${game.name}`}><ChevronRight size={18} /></button>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section event-section" id="event">
+        <div className="event-card">
+          <div className="event-card__visual">
+            <div className="event-mark"><Trophy size={40} /></div>
+            <span>OFFICIAL CAMPUS EVENT</span>
+          </div>
+          <div className="event-card__content">
+            <span className="section-kicker">EVENT TERBARU</span>
+            <h2>Piala Rektor Esports Championship 2025</h2>
+            <p>Turnamen resmi antar fakultas Telkom University Purwokerto untuk Mobile Legends dan Valorant.</p>
+            <div className="event-meta">
+              <span><Trophy size={15} /> Total Hadiah Rp 10.000.000</span>
+              <span><UsersRound size={15} /> 32 Slot Tim</span>
+            </div>
+            <button type="button" className="button button--primary">Lihat Detail Event <ArrowRight size={16} /></button>
+          </div>
+        </div>
+      </section>
+
+      <section className="cta-section">
+        <div>
+          <span className="section-kicker">SIAP BERGABUNG?</span>
+          <h2>Mulai perjalanan esports kampusmu hari ini.</h2>
+        </div>
+        <button className="button button--primary button--large" type="button">DAFTAR SEKARANG <ArrowRight size={17} /></button>
+      </section>
+
+      <footer className="footer">
+        <div className="brand brand--footer">
+          <img src={logo} alt="" />
+          <div><strong>UKM ESPORTS TEL-U</strong><span>TELKOM UNIVERSITY</span></div>
+        </div>
+        <p>Komunitas esports mahasiswa Telkom University Purwokerto.</p>
+        <a href="#beranda" aria-label="Instagram"><span className="footer-social">IG</span></a>
+      </footer>
+    </main>
+  );
+}
